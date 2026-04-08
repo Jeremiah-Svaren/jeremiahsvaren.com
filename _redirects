@@ -1,0 +1,6 @@
+# Clean URLs
+/tools      /tools.html      200
+/contact    /contact.html    200
+
+# Fallback
+/*    /index.html    200

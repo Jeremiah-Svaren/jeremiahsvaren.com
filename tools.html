@@ -1,0 +1,1092 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tools I Actually Use | Jeremiah Svaren</title>
+  <meta name="description"
+    content="The exact stack I use every day to build, rank, and automate for myself and my clients. Local SEO, AI, web design, and the odd thing I haven't been able to live without.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Syne:wght@500;600;700;800&family=Outfit:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet">
+  <style>
+    /* ─── RESET ─── */
+    *,
+    *::before,
+    *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button {
+      font: inherit;
+      background: none;
+      border: none;
+      color: inherit;
+      cursor: pointer;
+    }
+
+    /* ─── TOKENS (matched to index.html) ─── */
+    :root {
+      --bg: #0a0a0a;
+      --bg-elev: #111111;
+      --bg-card: #141414;
+      --ink: #f0ece4;
+      --ink-mute: #a8a29e;
+      --ink-faint: #6b6660;
+      --accent: #9AD7D8;
+      --accent-soft: rgba(154, 215, 216, 0.12);
+      --coral: #E85D5D;
+      --line: #1f1f1f;
+      --line-strong: #2a2a2a;
+      --serif: 'Syne', system-ui, sans-serif;
+      --sans: 'Outfit', system-ui, sans-serif;
+      --mono: 'JetBrains Mono', ui-monospace, monospace;
+      --ease: cubic-bezier(0.16, 1, 0.3, 1);
+      --pad-x: clamp(1.25rem, 4vw, 3rem);
+      --section-y: clamp(4rem, 8vw, 7rem);
+    }
+
+    body {
+      font-family: var(--sans);
+      font-weight: 400;
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.65;
+      overflow-x: hidden;
+      font-size: 17px;
+    }
+
+    ::selection {
+      background: var(--accent);
+      color: var(--bg);
+    }
+
+    .grain {
+      position: fixed;
+      inset: 0;
+      z-index: 60;
+      pointer-events: none;
+      opacity: 0.035;
+      mix-blend-mode: overlay;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+
+    .shell {
+      width: 100%;
+      max-width: 1320px;
+      margin-inline: auto;
+      padding-inline: var(--pad-x);
+    }
+
+    /* ─── NAV (identical to index.html) ─── */
+    nav.top {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 50;
+      padding: 1rem var(--pad-x);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(10, 10, 10, 0.7);
+      backdrop-filter: blur(18px) saturate(140%);
+      -webkit-backdrop-filter: blur(18px) saturate(140%);
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.4s var(--ease), padding 0.4s var(--ease);
+    }
+
+    nav.top.scrolled {
+      border-bottom-color: var(--line);
+      padding-block: 0.7rem;
+    }
+
+    .brand {
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .brand::before {
+      content: '';
+      width: 8px;
+      height: 8px;
+      background: var(--accent);
+      display: inline-block;
+      border-radius: 1px;
+      animation: pulse 3s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+
+      0%,
+      100% {
+        opacity: 1;
+      }
+
+      50% {
+        opacity: 0.35;
+      }
+    }
+
+    .nav-menu {
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    .nav-menu a {
+      font-family: var(--mono);
+      font-size: 0.74rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--ink-mute);
+      transition: color 0.3s var(--ease);
+    }
+
+    .nav-menu a:hover {
+      color: var(--ink);
+    }
+
+    .nav-menu a.current {
+      color: var(--accent);
+    }
+
+    .nav-menu a.cta {
+      color: var(--bg);
+      background: var(--accent);
+      padding: 0.55rem 1rem;
+      border-radius: 999px;
+      transition: transform 0.25s var(--ease), background 0.25s var(--ease);
+    }
+
+    .nav-menu a.cta:hover {
+      background: #b2e1e2;
+      transform: translateY(-1px);
+    }
+
+    .nav-toggle {
+      display: none;
+    }
+
+    .nav-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(10, 10, 10, 0.65);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s var(--ease);
+      z-index: 49;
+    }
+
+    .nav-backdrop.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    /* ─── REVEAL ─── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity 0.9s var(--ease), transform 0.9s var(--ease);
+    }
+
+    .reveal.in {
+      opacity: 1;
+      transform: none;
+    }
+
+    .reveal.d2 {
+      transition-delay: 0.08s;
+    }
+
+    .reveal.d3 {
+      transition-delay: 0.16s;
+    }
+
+    .reveal.d4 {
+      transition-delay: 0.24s;
+    }
+
+    .eyebrow {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.7rem;
+    }
+
+    .eyebrow::before {
+      content: '';
+      width: 28px;
+      height: 1px;
+      background: var(--accent);
+      display: inline-block;
+    }
+
+    section {
+      padding-block: var(--section-y);
+      position: relative;
+    }
+
+    /* ═══════ PAGE HERO ═══════ */
+    .page-hero {
+      padding-top: clamp(8rem, 14vw, 11rem);
+      padding-bottom: clamp(3rem, 6vw, 5rem);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .page-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 60% 40% at 80% 20%, rgba(154, 215, 216, 0.08), transparent 60%);
+      pointer-events: none;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+      gap: clamp(2rem, 5vw, 5rem);
+      align-items: end;
+      position: relative;
+    }
+
+    .page-hero h1 {
+      font-family: var(--serif);
+      font-weight: 700;
+      font-size: clamp(2.5rem, 6vw, 4.8rem);
+      line-height: 0.95;
+      letter-spacing: -0.025em;
+      margin-block: 1.5rem 1.5rem;
+      text-wrap: balance;
+    }
+
+    .page-hero h1 em {
+      color: var(--accent);
+      font-style: italic;
+      font-weight: 600;
+    }
+
+    .page-hero p {
+      color: var(--ink-mute);
+      font-size: clamp(1.02rem, 1.3vw, 1.15rem);
+      max-width: 56ch;
+      line-height: 1.65;
+    }
+
+    .hero-meta {
+      border-left: 1px solid var(--line);
+      padding-left: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    .meta-block {
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+    }
+
+    .meta-label {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      color: var(--ink-faint);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .meta-value {
+      font-family: var(--serif);
+      font-weight: 600;
+      font-size: 1.05rem;
+      color: var(--ink);
+      letter-spacing: -0.01em;
+    }
+
+    .meta-value.accent {
+      color: var(--accent);
+    }
+
+    /* ═══════ CATEGORY ═══════ */
+    .category {
+      padding-block: clamp(3rem, 5vw, 4.5rem);
+      border-top: 1px solid var(--line);
+    }
+
+    .category:first-of-type {
+      border-top: none;
+      padding-top: clamp(2rem, 4vw, 3rem);
+    }
+
+    .cat-head {
+      display: flex;
+      align-items: baseline;
+      gap: 1.25rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .cat-num {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      color: var(--accent);
+      letter-spacing: 0.1em;
+    }
+
+    .cat-name {
+      font-family: var(--serif);
+      font-weight: 700;
+      font-size: clamp(1.3rem, 2.2vw, 1.8rem);
+      letter-spacing: -0.015em;
+      line-height: 1;
+    }
+
+    .cat-line {
+      flex: 1;
+      height: 1px;
+      background: var(--line);
+    }
+
+    /* ═══════ TOOL TILES ═══════ */
+    .tools-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.25rem;
+    }
+
+    .tool {
+      position: relative;
+      padding: 2rem 1.85rem;
+      background: var(--bg-card);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      overflow: hidden;
+      transition: border-color 0.4s var(--ease), transform 0.4s var(--ease);
+      display: flex;
+      flex-direction: column;
+      min-height: 230px;
+    }
+
+    .tool:hover {
+      border-color: var(--line-strong);
+      transform: translateY(-2px);
+    }
+
+    .tool::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at var(--mx, 50%) var(--my, 0%), rgba(154, 215, 216, 0.08), transparent 50%);
+      opacity: 0;
+      transition: opacity 0.4s var(--ease);
+      pointer-events: none;
+    }
+
+    .tool:hover::after {
+      opacity: 1;
+    }
+
+    .tool-num {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      color: var(--ink-faint);
+      letter-spacing: 0.1em;
+      margin-bottom: 1rem;
+    }
+
+    .tool-num span {
+      color: var(--accent);
+    }
+
+    .tool h3 {
+      font-family: var(--serif);
+      font-weight: 700;
+      font-size: 1.45rem;
+      line-height: 1.1;
+      letter-spacing: -0.015em;
+      margin-bottom: 0.7rem;
+    }
+
+    .tool p {
+      color: var(--ink-mute);
+      font-size: 0.96rem;
+      line-height: 1.6;
+      flex: 1;
+    }
+
+    .tool-foot {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 1.5rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--line);
+    }
+
+    .tool-tag {
+      font-family: var(--mono);
+      font-size: 0.6rem;
+      padding: 0.3rem 0.55rem;
+      border: 1px solid var(--line-strong);
+      border-radius: 4px;
+      color: var(--ink-faint);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .tool-tag.affiliate {
+      color: var(--coral);
+      border-color: rgba(232, 93, 93, 0.35);
+    }
+
+    .tool-tag.referral {
+      color: var(--accent);
+      border-color: rgba(154, 215, 216, 0.35);
+    }
+
+    .tool-link {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--ink-mute);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .tool:hover .tool-link {
+      color: var(--accent);
+    }
+
+    .arrow {
+      display: inline-block;
+      transition: transform 0.3s var(--ease);
+    }
+
+    .tool:hover .arrow {
+      transform: translate(3px, -3px);
+    }
+
+    /* ═══════ CTA STRIP ═══════ */
+    .strip {
+      margin-top: clamp(4rem, 8vw, 6rem);
+      padding: clamp(2.5rem, 5vw, 4rem);
+      background: var(--bg-elev);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+      gap: 2rem;
+      align-items: center;
+    }
+
+    .strip h2 {
+      font-family: var(--serif);
+      font-weight: 700;
+      font-size: clamp(1.6rem, 3vw, 2.4rem);
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      margin-top: 1rem;
+      text-wrap: balance;
+    }
+
+    .strip h2 em {
+      font-style: italic;
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    .strip p {
+      color: var(--ink-mute);
+      max-width: 50ch;
+      margin-top: 1rem;
+      font-size: 1rem;
+    }
+
+    .strip-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+      justify-self: end;
+      width: 100%;
+      max-width: 280px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 1.4rem;
+      font-family: var(--mono);
+      font-size: 0.74rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      border-radius: 999px;
+      transition: transform 0.25s var(--ease), background 0.25s var(--ease), color 0.25s var(--ease), border-color 0.25s var(--ease);
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: var(--bg);
+    }
+
+    .btn-primary:hover {
+      background: #b8e6e7;
+      transform: translateY(-2px);
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--ink);
+      border: 1px solid var(--line-strong);
+    }
+
+    .btn-ghost:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    /* ═══════ FOOTER ═══════ */
+    footer {
+      padding: 2rem var(--pad-x);
+      border-top: 1px solid var(--line);
+      margin-top: var(--section-y);
+    }
+
+    .foot-row {
+      max-width: 1320px;
+      margin-inline: auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--ink-faint);
+    }
+
+    .foot-row a {
+      transition: color 0.3s var(--ease);
+    }
+
+    .foot-row a:hover {
+      color: var(--accent);
+    }
+
+    .foot-links {
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    /* ═══════ MOBILE ═══════ */
+    @media (max-width: 920px) {
+      :root {
+        --section-y: clamp(3rem, 10vw, 5rem);
+      }
+
+      .nav-toggle {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        width: 32px;
+        height: 32px;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        z-index: 60;
+      }
+
+      .nav-toggle span {
+        width: 22px;
+        height: 1.5px;
+        background: var(--ink);
+        display: block;
+        transition: transform 0.35s var(--ease), opacity 0.25s var(--ease);
+        transform-origin: center;
+      }
+
+      .nav-toggle.open span:nth-child(1) {
+        transform: translateY(6.5px) rotate(45deg);
+      }
+
+      .nav-toggle.open span:nth-child(2) {
+        opacity: 0;
+        transform: scaleX(0.4);
+      }
+
+      .nav-toggle.open span:nth-child(3) {
+        transform: translateY(-6.5px) rotate(-45deg);
+      }
+
+      .nav-menu {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 80%;
+        max-width: 320px;
+        height: 100dvh;
+        background: var(--bg);
+        border-left: 1px solid var(--line);
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 6rem 2rem 2rem;
+        gap: 1.5rem;
+        transition: right 0.4s var(--ease);
+      }
+
+      .nav-menu.open {
+        right: 0;
+      }
+
+      .nav-menu a {
+        font-size: 0.95rem;
+      }
+
+      .hero-grid {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+        align-items: start;
+      }
+
+      .hero-meta {
+        border-left: none;
+        border-top: 1px solid var(--line);
+        padding-left: 0;
+        padding-top: 1.5rem;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 1.5rem 2.5rem;
+      }
+
+      .tools-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .tool {
+        min-height: auto;
+        padding: 1.85rem 1.5rem;
+      }
+
+      .cat-head {
+        gap: 1rem;
+        flex-wrap: wrap;
+      }
+
+      .cat-line {
+        display: none;
+      }
+
+      .strip {
+        grid-template-columns: 1fr;
+        padding: 2rem 1.5rem;
+      }
+
+      .strip-actions {
+        justify-self: stretch;
+        max-width: 100%;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .reveal {
+        opacity: 1;
+        transform: none;
+      }
+
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="grain"></div>
+
+  <!-- ═══════ NAV ═══════ -->
+  <nav class="top" id="nav">
+    <a href="index.html" class="brand">Jeremiah Svaren</a>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="navMenu"><span></span><span></span><span></span></button>
+    <div class="nav-menu" id="navMenu">
+      <a href="index.html#story">Story</a>
+      <a href="index.html#expertise">What I do</a>
+      <a href="index.html#projects">Projects</a>
+      <a href="tools.html" class="current">Tools</a>
+      <a href="contact.html" class="cta">Let's talk</a>
+    </div>
+  </nav>
+  <div class="nav-backdrop" id="navBackdrop"></div>
+
+  <!-- ═══════ HERO ═══════ -->
+  <section class="page-hero">
+    <div class="shell">
+      <div class="hero-grid">
+        <div>
+          <div class="eyebrow reveal">My stack</div>
+          <h1 class="reveal d2">Tools I <em>actually use</em>.</h1>
+          <p class="reveal d3">
+            So this is the exact stack I run every day for myself and my clients. Not stuff I read about on Twitter,
+            not stuff a vendor sent me a free trial of. Stuff I've put through the wringer on real projects, in
+            real businesses, and kept around because I use them just about every day. Some of the links are affiliate,
+            and I
+            mark those clearly so you know what you're clicking. I earn a little kick back if you sign up or purchase
+            through the links,
+            but it doesn't cost you anything extra.
+          </p>
+        </div>
+        <div class="hero-meta reveal d4">
+          <div class="meta-block">
+            <div class="meta-label">Last updated</div>
+            <div class="meta-value">April 2026</div>
+          </div>
+          <div class="meta-block">
+            <div class="meta-label">Tools tracked</div>
+            <div class="meta-value">13 active</div>
+          </div>
+          <div class="meta-block">
+            <div class="meta-label">Tested in</div>
+            <div class="meta-value accent">A real auto shop</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════ CATEGORIES ═══════ -->
+  <main class="shell">
+
+    <!-- 01 SEO & RANKINGS -->
+    <section class="category">
+      <div class="cat-head reveal">
+        <span class="cat-num">01</span>
+        <span class="cat-name">SEO & Rankings</span>
+        <span class="cat-line"></span>
+      </div>
+      <div class="tools-grid">
+        <a href="https://mangools.com#a65e410526aee081971dbc50f" target="_blank" rel="noopener" class="tool reveal">
+          <div class="tool-num">01.1 <span>/ KEYWORDS</span></div>
+          <h3>Mangools</h3>
+          <p>
+            Keyword research and SERP tracking that doesn't cost a fortune. Clean interface, accurate data, and
+            pretty much perfect for local SEO campaigns where you don't need the enterprise-level bloat.
+          </p>
+          <div class="tool-foot">
+            <span class="tool-tag affiliate">Affiliate</span>
+            <span class="tool-link">Visit <span class="arrow">&rarr;</span></span>
+          </div>
+        </a>
+
+        <a href="https://localdominator.co/leadinglocal/" target="_blank" rel="noopener" class="tool reveal d2">
+          <div class="tool-num">01.2 <span>/ MAP TRACKING</span></div>
+          <h3>Local Dominator</h3>
+          <p>
+            GBP geo grid tracking that shows exactly where your client ranks across their service area. The visual
+            heatmaps make it super easy to show clients their local visibility without a long explanation.
+          </p>
+          <div class="tool-foot">
+            <span class="tool-tag affiliate">Affiliate</span>
+            <span class="tool-link">Visit <span class="arrow">&rarr;</span></span>
+          </div>
+        </a>
+
+        <a href="https://seogets.com/?ref=jeremiah" target="_blank" rel="noopener" class="tool reveal d3">
+          <div class="tool-num">01.3 <span>/ GSC INSIGHTS</span></div>
+          <h3>SEOgets</h3>
+          <p>
+            Google Search Console data visualization that actually makes sense. Takes all that raw data and turns it
+            into something you can actually use, without the spreadsheet headache.
+          </p>
+          <div class="tool-foot">
+            <span class="tool-tag affiliate">Affiliate</span>
+            <span class="tool-link">Visit <span class="arrow">&rarr;</span></span>
+          </div>
+        </a>
+
+        <a href="https://splashdash.app" target="_blank" rel="noopener" class="tool reveal d4">
+          <div class="tool-num">01.4 <span>/ AUDITS</span></div>
+          <h3>SplashDash</h3>
+          <p>
+            Fast local SEO reports that look great and take minutes to generate. Pretty perfect for client onboarding
+            and monthly check-ins when you need a quick, professional audit snapshot.
+          </p>
+          <div class="tool-foot">
+            <span class="tool-tag">Tool</span>
+            <span class="tool-link">Visit <span class="arrow">&rarr;</span></span>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- 02 BUILDING & DESIGN -->
+    <section class="category">
+      <div class="cat-head reveal">
+        <span class="cat-num">02</span>
+        <span class="cat-name">Building & Design</span>
+        <span class="cat-line"></span>
+      </div>
+      <div class="tools-grid">
+        <a href="https://www.duda.co" target="_blank" rel="noopener" class="tool reveal">
+          <div class="tool-num">02.1 <span>/ WEBSITE BUILDER</span></div>
+          <h3>Duda</h3>
+          <p>
+            My go-to website builder that replaced my WordPress stack. Super fast, agency-friendly, and the white-label
+            tools are the
+            best in the game. The AI editor plus the MCP connection is really something. It's made site builds way
+            faster.
+          </p>
+          <div class="tool-foot">
+            <span class="tool-tag">Tool</span>
+            <span class="tool-link">Visit <span class="arrow">&rarr;</span></span>
+          </div>
+        </a>
+
+        <a href="https://www.canva.com" target="_blank" rel="noopener" class="tool reveal d2">
+          <div class="tool-num">02.2 <span>/ GRAPHICS</span></div>
+          <h3>Canva</h3>
+          <p>
+            Social media graphics, quick mockups, and client presentations. It's not Photoshop-level, but for speed
+            and keeping things consistent, it's pretty hard to beat.
+          </p>
+          <div class="tool-foot">
+            <span class="tool-tag">Tool</span>
+            <span class="tool-link">Visit <span class="arrow">&rarr;</span></span>
+          </div>
+        </a>
+
+        <a href="https://replit.com/refer/jeremiah38" target="_blank" rel="noopener" class="tool reveal d3">
+          <div class="tool-num">02.3 <span>/ PROTOTYPING</span></div>
+          <h3>Replit</h3>
+          <p>
+            Rapid prototyping for web and mobile apps. When I have an idea for a tool or need to test something fast,
+            Replit gets me from concept to working prototype pretty quickly.
+          </p>
+          <div class="tool-foot">
+            <span class="tool-tag affiliate">Affiliate</span>
+            <span class="tool-link">Visit <span class="arrow">&rarr;</span></span>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- 03 AI & AUTOMATION -->
+    <section class="category">
+      <div class="cat-head reveal">
+        <span class="cat-num">03</span>
+        <span class="cat-name">AI & Automation</span>
+        <span class="cat-line"></span>
+      </div>
+      <div class="tools-grid">
+        <a href="https://claude.ai/referral/HbkDxkwhXQ?s=cowork&v=apps" target="_blank" rel="noopener" class="tool reveal">
+          <div class="tool-num">03.1 <span>/ AI CO-PILOT</span></div>
+          <h3>Claude</h3>
+          <p>
+            My AI co-pilot for pretty much everything. Content, code, audits, the boring research stuff. The MCP
+            integration lets it talk directly to Duda, which makes website builds super fast. Quick heads up: this
+            link gets you a free week of Claude Cowork, but I've only got 3 invites left, so it's first come first
+            served.
+          </p>
+          <div class="tool-foot">
+            <span class="tool-tag referral">Referral · Free Week · 3 Left</span>
+            <span class="tool-link">Visit <span class="arrow">&rarr;</span></span>
+          </div>
+        </a>
+
+        <a href="https://www.gohighlevel.com/?fp_ref=svaren" target="_blank" rel="noopener" class="tool reveal d2">
+          <div class="tool-num">03.2 <span>/ CRM & AUTOMATION</span></div>
+          <h3>HighLevel</h3>
+          <p>
+            All-in-one CRM and marketing automation for agencies. Phone calls, texts, review requests, automated
+            follow-ups, funnels, and a unified inbox. It replaces like five separate tools, which is why I'm
+            still using it.
+          </p>
+          <div class="tool-foot">
+            <span class="tool-tag affiliate">Affiliate</span>
+            <span class="tool-link">Visit <span class="arrow">&rarr;</span></span>
+          </div>
+        </a>
+
+        <a href="https://wisprflow.ai/r?JEREMIAH254" target="_blank" rel="noopener" class="tool reveal d3">
+          <div class="tool-num">03.3 <span>/ VOICE INPUT</span></div>
+          <h3>Wispr Flow</h3>
+          <p>
+            The best voice-to-text I've found on both laptop and phone. Way faster than typing for emails, notes, and
+            content. Once you start dictating everything, there's definitely no going back. Heads up: this is a
+            referral link, so if you sign up we both get a free month.
+          </p>
+          <div class="tool-foot">
+            <span class="tool-tag referral">Referral · Free Month</span>
+            <span class="tool-link">Visit <span class="arrow">&rarr;</span></span>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- 04 VIDEO & COMMUNICATION -->
+    <section class="category">
+      <div class="cat-head reveal">
+        <span class="cat-num">04</span>
+        <span class="cat-name">Video & Communication</span>
+        <span class="cat-line"></span>
+      </div>
+      <div class="tools-grid">
+        <a href="https://www.descript.com" target="_blank" rel="noopener" class="tool reveal">
+          <div class="tool-num">04.1 <span>/ VIDEO EDITING</span></div>
+          <h3>Descript</h3>
+          <p>
+            Video editing that works like editing a doc. You literally just edit the transcript. Super helpful for
+            YouTube content and client walkthroughs when I don't want to fight a timeline.
+          </p>
+          <div class="tool-foot">
+            <span class="tool-tag">Tool</span>
+            <span class="tool-link">Visit <span class="arrow">&rarr;</span></span>
+          </div>
+        </a>
+
+        <a href="https://www.loom.com" target="_blank" rel="noopener" class="tool reveal d2">
+          <div class="tool-num">04.2 <span>/ SCREEN SHARE</span></div>
+          <h3>Loom</h3>
+          <p>
+            Quick video walkthroughs for clients. So much better than typing out a long email when I need to show
+            somebody exactly what I'm seeing on their site or in their dashboard.
+          </p>
+          <div class="tool-foot">
+            <span class="tool-tag">Tool</span>
+            <span class="tool-link">Visit <span class="arrow">&rarr;</span></span>
+          </div>
+        </a>
+
+        <a href="https://heypocket.com/10542871" target="_blank" rel="noopener" class="tool reveal d3">
+          <div class="tool-num">04.3 <span>/ CALL CAPTURE</span></div>
+          <h3>HeyPocket</h3>
+          <p>
+            Records meetings and phone calls so nothing slips through the cracks. Super helpful for client calls when
+            you need to go back and reference what was actually discussed (instead of relying on your memory).
+          </p>
+          <div class="tool-foot">
+            <span class="tool-tag affiliate">Affiliate</span>
+            <span class="tool-link">Visit <span class="arrow">&rarr;</span></span>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- ═══════ STRIP CTA ═══════ -->
+    <div class="strip reveal">
+      <div>
+        <div class="eyebrow">Got a question</div>
+        <h2>Curious how any of this <em>actually</em> works?</h2>
+        <p>
+          If you're wondering whether one of these tools would make sense for your business, or you want to nerd out
+          about how I've got them wired together, I'm easy to get ahold of. No pitch, just a conversation.
+        </p>
+      </div>
+      <div class="strip-actions">
+        <a href="contact.html" class="btn btn-primary">Let's talk <span class="arrow">&rarr;</span></a>
+        <a href="index.html" class="btn btn-ghost">Back to home <span class="arrow">&rarr;</span></a>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ═══════ FOOTER ═══════ -->
+  <footer>
+    <div class="foot-row">
+      <div>© 2026 Jeremiah Svaren · Built in Southern Oregon</div>
+      <div class="foot-links">
+        <a href="index.html">Home</a>
+        <a href="https://www.youtube.com/@svaren" target="_blank" rel="noopener">YouTube</a>
+        <a href="https://www.leadinglocal.co" target="_blank" rel="noopener">LeadingLocal</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const nav = document.getElementById('nav');
+    const onScroll = () => nav.classList.toggle('scrolled', window.scrollY > 40);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+
+    const toggle = document.getElementById('navToggle');
+    const menu = document.getElementById('navMenu');
+    const backdrop = document.getElementById('navBackdrop');
+
+    const openMenu = () => {
+      menu.classList.add('open');
+      toggle.classList.add('open');
+      backdrop.classList.add('open');
+      toggle.setAttribute('aria-expanded', 'true');
+      document.body.style.overflow = 'hidden';
+    };
+    const closeMenu = () => {
+      menu.classList.remove('open');
+      toggle.classList.remove('open');
+      backdrop.classList.remove('open');
+      toggle.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+    };
+    toggle.addEventListener('click', () => {
+      menu.classList.contains('open') ? closeMenu() : openMenu();
+    });
+    backdrop.addEventListener('click', closeMenu);
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && menu.classList.contains('open')) closeMenu();
+    });
+    menu.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
+
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+    document.querySelectorAll('.tool').forEach(tile => {
+      tile.addEventListener('pointermove', (e) => {
+        const r = tile.getBoundingClientRect();
+        tile.style.setProperty('--mx', ((e.clientX - r.left) / r.width * 100) + '%');
+        tile.style.setProperty('--my', ((e.clientY - r.top) / r.height * 100) + '%');
+      });
+    });
+  </script>
+</body>
+
+</html>

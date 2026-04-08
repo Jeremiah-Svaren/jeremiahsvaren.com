@@ -1,0 +1,11 @@
+# Mac
+.DS_Store
+
+# Internal docs (PRD, design notes, voice guide, Claude context)
+*.md
+
+# Local deploy folder (no longer needed once Netlify deploys from git)
+dist/
+
+# Unused source asset (transparent PNG is what the site actually uses)
+headshot.png
