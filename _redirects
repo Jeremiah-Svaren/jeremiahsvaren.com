@@ -2,5 +2,8 @@
 /tools      /tools.html      200
 /contact    /contact.html    200
 
+/blog /blog.html 200
+/blog/please-stop-using-ai-flyers /blog/please-stop-using-ai-flyers.html 200
+
 # Fallback
 /*    /index.html    200
