@@ -5,5 +5,7 @@
 /blog /blog.html 200
 /blog/please-stop-using-ai-flyers /blog/please-stop-using-ai-flyers.html 200
 
+/blog/meta-muse-small-business-owners /blog/meta-muse-small-business-owners.html 200
+
 # Fallback
 /*    /index.html    200
