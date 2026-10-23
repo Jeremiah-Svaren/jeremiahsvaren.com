@@ -9,5 +9,8 @@
 
 /blog/meta-muse-social-media-guide /blog/meta-muse-social-media-guide.html 200
 
+# Netlify form success destination
+/contact-success /contact-success.html 200
+
 # Fallback
 /*    /index.html    200
