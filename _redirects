@@ -12,5 +12,7 @@
 # Netlify form success destination
 /contact-success /contact-success.html 200
 
+/blog/chatgpt-business-hub-first-impressions /blog/chatgpt-business-hub-first-impressions.html 200
+
 # Fallback
 /*    /index.html    200
